@@ -1,0 +1,28 @@
+# Python
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv
+
+
+# Spark
+metastore_db/
+spark-warehouse/
+derby.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data
+data/raw/*
+data/lakehouse/*
+data/quarantine/*
+
+!data/raw/.gitkeep
+!data/lakehouse/.gitkeep
+!data/quarantine/.gitkeep
+
+# Models and logs
+artifacts/
+logs/

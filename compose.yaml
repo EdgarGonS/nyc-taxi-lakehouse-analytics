@@ -1,0 +1,31 @@
+name: nyc-taxi-lakehouse
+
+services:
+  spark:
+    build:
+      context: .
+      dockerfile: container/Containerfile
+
+    image: nyc-taxi-spark:local
+    container_name: nyc-taxi-spark
+
+    working_dir: /opt/project
+
+    volumes:
+      - type: bing
+        source: .
+        target: /opt/project
+
+    environment:
+      PYTHONPATH: /opt/project/src
+      PYSPARK_PYTHON: python3
+      PYSPARK_DRIVER_PYTHON: python3
+      SPARK_LOCAL_IP: 127.0.0.1
+
+    ports:
+      - "4040:4040"
+
+    command:
+      - tail
+      - -f
+      _ /dev/null

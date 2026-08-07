@@ -1,0 +1,29 @@
+FROM apache/spark:3.5.9-scala2.12-java17-python3-ubuntu
+
+USER root
+
+WORKDIR /opt/project
+
+RUN python3 -m pip install --no-cache-dir \
+	pytest==8.3.5 \
+	pytest-cov=6.0.0 \
+	pandas==2.2.3 \
+	pyarrow==19.0.1 \
+	pyyaml==6.0.2
+
+ENV PYTHONPATH=/opt/project/src
+ENV PYSPARK_PYTHON=python3
+ENV PYSPARK_DRIVER_PYTHON=python3
+
+RUN mkdir -p \
+	/opt/project/data/raw \
+	/opt/project/data/reference \
+	/opt/project/data/lakehouse \
+	/opt/project/data/quarantine \
+	/opt/project/logs \
+	/opt/project/artifacts \
+	&& chown -R spark:spark /opt/project
+
+USER spark
+
+CMD ["tail", "-f", "/dev/null"]
